@@ -4,7 +4,7 @@ with open('README.md') as file:
 
     readme = file.read()
 
-name = 'stroke'
+name = 'strdata'
 
 module = __import__(name)
 
