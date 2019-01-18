@@ -50,8 +50,8 @@ def move(find, error, assets, get, arguments):
 
             final = parse(value, *extra)
 
-        except Exception as error:
+        except Exception as _error:
 
-            raise error(field) from error
+            raise error(field) from _error
 
         yield (identity, final)
