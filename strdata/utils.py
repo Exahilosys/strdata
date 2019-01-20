@@ -7,7 +7,13 @@ from . import parsers
 __all__ = ()
 
 
-def apply(first, *checks, skip = None):
+reject = (None,)
+
+
+skip = reject.__contains__
+
+
+def apply(first, *checks, skip = skip):
 
     def execute(*args):
 
