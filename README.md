@@ -177,5 +177,5 @@ Play around with the test and checks values.
 There are push and check errors that can be raised!
 ## Installing
 ```
-python3 -m pip install git+https://github.com/Exahilosys/strdata.git
+python3 -m pip install strdata
 ```
