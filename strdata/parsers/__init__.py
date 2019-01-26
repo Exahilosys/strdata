@@ -22,9 +22,7 @@ def pair(argument, add = '-and', set = '-set'):
     return stores
 
 
-def find(values, arguments, join = ' '.join):
-
-    argument = join(arguments)
+def find(values, argument):
 
     return abstract.find(values, argument)
 

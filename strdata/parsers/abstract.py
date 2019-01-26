@@ -4,17 +4,31 @@ import stroke
 __all__ = ()
 
 
-def pair(add, set, argument, parse = tuple):
+def pair(add, set, argument):
 
     bundles = stroke.parse.split(argument, add)
 
+    bundles = stroke.parse.clean(bundles)
+
     for bundle in bundles:
 
-        key, values = stroke.parse.group(bundle, set)
+        assets = stroke.parse.split(bundle, set)
 
-        against = values[:1]
+        assets = stroke.parse.clean(assets)
 
-        entry = (key, *against)
+        key = next(assets)
+
+        try:
+
+            value = next(assets)
+
+        except StopIteration:
+
+            entry = (key,)
+
+        else:
+
+            entry = (key, value)
 
         yield entry
 

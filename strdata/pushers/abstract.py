@@ -4,16 +4,14 @@ import math
 __all__ = ()
 
 
-def string(join, state, values):
+def string(state, value):
 
-    final = join(values)
+    final = value
 
     return final
 
 
-def integer(error, state, values):
-
-    value = values[0]
+def integer(error, state, value):
 
     try:
 
@@ -26,9 +24,7 @@ def integer(error, state, values):
     return final
 
 
-def decimal(error, state, values):
-
-    value = values[0]
+def decimal(error, state, value):
 
     try:
 
@@ -45,9 +41,9 @@ def decimal(error, state, values):
     return final
 
 
-def boolean(options, error, state, values):
+def boolean(options, error, state, value):
 
-    value = values[0].lower()
+    value = value.lower()
 
     for final, option in options:
 
@@ -64,11 +60,11 @@ def boolean(options, error, state, values):
     return final
 
 
-def array(split, sub, state, values):
+def array(split, sub, state, value):
 
     state = set(state)
 
-    stores = split(values)
+    stores = split(value)
 
     handles = (state.add, state.remove)
 

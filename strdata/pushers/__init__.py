@@ -23,12 +23,12 @@ def _safe(function):
 
 
 @functools.lru_cache(maxsize = None)
-def string(join = ' '.join):
+def string():
 
     @_safe
     def execute(*args):
 
-        return abstract.string(join, *args)
+        return abstract.string(*args)
 
     return execute
 
@@ -97,13 +97,13 @@ def boolean(options = (
     return execute
 
 
-def _split(values, add = '-add', pop = '-pop'):
+def _split(value, add = '-add', pop = '-pop'):
 
-    initial, *stores = stroke.parse.group(values, add, pop)
+    keys = (add, pop)
 
-    cleans = (filter(bool, store) for store in stores)
+    junk, *stores = stroke.parse.group(value, *keys)
 
-    return cleans
+    return map(stroke.parse.clean, stores)
 
 
 @functools.lru_cache(maxsize = None)
