@@ -7,7 +7,7 @@ from . import abstract
 __all__ = ()
 
 
-def _safe(function):
+def safe(function):
 
     def wrapper(*args, default = None):
 
@@ -25,7 +25,7 @@ def _safe(function):
 @functools.lru_cache(maxsize = None)
 def string():
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.string(*args)
@@ -49,7 +49,7 @@ def integer(code = 'integer'):
 
     error = functools.partial(Error, code)
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.integer(error, *args)
@@ -62,7 +62,7 @@ def decimal(code = 'decimal'):
 
     error = functools.partial(Error, code)
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.decimal(error, *args)
@@ -89,7 +89,7 @@ def boolean(options = (
 
     error = functools.partial(Error, code)
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.boolean(options, error, *args)
@@ -109,7 +109,7 @@ def _split(value, add = '-add', pop = '-pop'):
 @functools.lru_cache(maxsize = None)
 def array(sub, split = _split):
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.array(split, sub, *args)

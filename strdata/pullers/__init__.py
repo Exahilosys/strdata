@@ -6,7 +6,7 @@ from . import abstract
 __all__ = ()
 
 
-def _safe(function):
+def safe(function):
 
     def wrapper(*args, default = '-'):
 
@@ -24,7 +24,7 @@ def _safe(function):
 @functools.lru_cache(maxsize = None)
 def string():
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.string(*args)
@@ -35,7 +35,7 @@ def string():
 @functools.lru_cache(maxsize = None)
 def integer():
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.integer(*args)
@@ -46,7 +46,7 @@ def integer():
 @functools.lru_cache(maxsize = None)
 def decimal(precision = 3):
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.decimal(precision, *args)
@@ -57,7 +57,7 @@ def decimal(precision = 3):
 @functools.lru_cache(maxsize = None)
 def boolean(options = ('inactive', 'active')):
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.boolean(options, *args)
@@ -68,7 +68,7 @@ def boolean(options = ('inactive', 'active')):
 @functools.lru_cache(maxsize = None)
 def array(sub, join = ', '.join):
 
-    @_safe
+    @safe
     def execute(*args):
 
         return abstract.array(join, sub, *args)
