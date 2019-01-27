@@ -6,7 +6,7 @@ from . import pushers
 from . import utils
 
 
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 
 
 __all__ = ('checks', 'parsers', 'pushers', 'pullers', 'utils')

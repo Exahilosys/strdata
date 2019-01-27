@@ -14,9 +14,13 @@ def pair(add, set, argument):
 
         assets = stroke.parse.split(bundle, set)
 
-        assets = stroke.parse.clean(assets)
+        assets = stroke.parse.clean(assets, empty = False)
 
         key = next(assets)
+
+        if not key:
+
+            continue
 
         try:
 
