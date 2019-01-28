@@ -44,12 +44,12 @@ def integer():
 
 
 @functools.lru_cache(maxsize = None)
-def decimal(precision = 3):
+def decimal(point = 3):
 
     @safe
     def execute(*args):
 
-        return abstract.decimal(precision, *args)
+        return abstract.decimal(point, *args)
 
     return execute
 

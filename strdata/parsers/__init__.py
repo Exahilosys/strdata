@@ -5,6 +5,15 @@ from . import abstract
 __all__ = ()
 
 
+class Error(Exception):
+
+    __slots__ = ('field',)
+
+    def __init__(self, field):
+
+        self.field = field
+
+
 def pair(argument, add = '-and', set = '-set'):
 
     entries = abstract.pair(add, set, argument)
@@ -25,15 +34,6 @@ def pair(argument, add = '-and', set = '-set'):
 def find(values, argument):
 
     return abstract.find(values, argument)
-
-
-class Error(Exception):
-
-    __slots__ = ('field',)
-
-    def __init__(self, field):
-
-        self.field = field
 
 
 def move(assets, argument, get, find = find):

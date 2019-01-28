@@ -7,6 +7,17 @@ from . import abstract
 __all__ = ()
 
 
+class Error(Exception):
+
+    __slots__ = ('code', 'info')
+
+    def __init__(self, code, *info):
+
+        self.code = code
+
+        self.info = info
+
+
 def safe(function):
 
     def wrapper(*args, default = None):
@@ -28,20 +39,11 @@ def string():
     @safe
     def execute(*args):
 
-        return abstract.string(*args)
+        value = abstract.string(*args)
+
+        return value
 
     return execute
-
-
-class Error(Exception):
-
-    __slots__ = ('code', 'info')
-
-    def __init__(self, code, *info):
-
-        self.code = code
-
-        self.info = info
 
 
 @functools.lru_cache(maxsize = None)
@@ -52,20 +54,28 @@ def integer(code = 'integer'):
     @safe
     def execute(*args):
 
-        return abstract.integer(error, *args)
+        value = abstract.integer(error, *args)
+
+        return value
 
     return execute
 
 
 @functools.lru_cache(maxsize = None)
-def decimal(code = 'decimal'):
+def decimal(code = 'decimal', point = 3):
 
     error = functools.partial(Error, code)
 
     @safe
     def execute(*args):
 
-        return abstract.decimal(error, *args)
+        value = abstract.decimal(error, *args)
+
+        if not point is None:
+
+            value = round(value, point)
+
+        return value
 
     return execute
 
@@ -92,7 +102,9 @@ def boolean(options = (
     @safe
     def execute(*args):
 
-        return abstract.boolean(options, error, *args)
+        value = abstract.boolean(options, error, *args)
+
+        return value
 
     return execute
 
@@ -112,6 +124,8 @@ def array(sub, split = _split):
     @safe
     def execute(*args):
 
-        return abstract.array(split, sub, *args)
+        value = abstract.array(split, sub, *args)
+
+        return value
 
     return execute
