@@ -10,9 +10,7 @@ def safe(function):
 
     def wrapper(*args, default = '-'):
 
-        value = args[-1]
-
-        if value is None:
+        if args[0] is None:
 
             return default
 

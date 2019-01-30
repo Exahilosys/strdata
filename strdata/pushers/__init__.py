@@ -22,9 +22,7 @@ def safe(function):
 
     def wrapper(*args, default = None):
 
-        values = args[-1]
-
-        if not values:
+        if not args[1]:
 
             return default
 
