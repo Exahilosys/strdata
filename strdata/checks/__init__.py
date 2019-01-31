@@ -29,7 +29,6 @@ def range(lower, upper, code = 'range', left = True, right = True):
     return execute
 
 
-@functools.lru_cache(maxsize = None)
 def include(store, white = True, code = 'include'):
 
     error = functools.partial(Error, code)
