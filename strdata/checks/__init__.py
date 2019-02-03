@@ -1,6 +1,6 @@
 import functools
 
-from . import abstract
+from . import simple
 
 
 __all__ = ()
@@ -24,7 +24,7 @@ def range(lower, upper, code = 'range', left = True, right = True):
 
     def execute(*args):
 
-        return abstract.range(error, lower, left, upper, right, *args)
+        return simple.range(error, lower, left, upper, right, *args)
 
     return execute
 
@@ -35,6 +35,6 @@ def include(store, white = True, code = 'include'):
 
     def execute(*args):
 
-        return abstract.include(error, white, store, *args)
+        return simple.include(error, white, store, *args)
 
     return execute

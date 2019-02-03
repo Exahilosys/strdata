@@ -1,5 +1,5 @@
 
-from . import abstract
+from . import simple
 
 
 __all__ = ()
@@ -16,7 +16,7 @@ class Error(Exception):
 
 def pair(argument, add = '-and', set = '-set'):
 
-    entries = abstract.pair(add, set, argument)
+    entries = simple.pair(add, set, argument)
 
     stores = ([], [])
 
@@ -33,9 +33,9 @@ def pair(argument, add = '-and', set = '-set'):
 
 def find(values, argument):
 
-    return abstract.find(values, argument)
+    return simple.find(values, argument)
 
 
 def move(assets, argument, get, find = find):
 
-    return abstract.move(find, Error, assets, argument, get)
+    return simple.move(find, Error, assets, argument, get)

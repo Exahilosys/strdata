@@ -1,6 +1,6 @@
 import functools
 
-from . import abstract
+from . import simple
 
 
 __all__ = ()
@@ -25,7 +25,7 @@ def string():
     @safe
     def execute(*args):
 
-        return abstract.string(*args)
+        return simple.string(*args)
 
     return execute
 
@@ -36,7 +36,7 @@ def integer():
     @safe
     def execute(*args):
 
-        return abstract.integer(*args)
+        return simple.integer(*args)
 
     return execute
 
@@ -47,7 +47,7 @@ def decimal(point = 3):
     @safe
     def execute(*args):
 
-        return abstract.decimal(point, *args)
+        return simple.decimal(point, *args)
 
     return execute
 
@@ -58,7 +58,7 @@ def boolean(options = ('inactive', 'active')):
     @safe
     def execute(*args):
 
-        return abstract.boolean(options, *args)
+        return simple.boolean(options, *args)
 
     return execute
 
@@ -69,6 +69,6 @@ def array(sub, join = ', '.join):
     @safe
     def execute(*args):
 
-        return abstract.array(join, sub, *args)
+        return simple.array(join, sub, *args)
 
     return execute

@@ -45,19 +45,7 @@ pushers = {
         strdata.utils.apply(
             strdata.pushers.array(
                 strdata.utils.apply(
-                    functools.partial(
-                        strdata.pushers.string(),
-                        # we have to do this because
-                        # pushers require to know the
-                        # previous state of the value
-                        # they parse (even if sometimes
-                        # it's not really used for anything);
-                        # since we can't schemanticaly derive
-                        # this value from an array, we have
-                        # to explicitely pass it; (pushers.string
-                        # doesn't use the state like most pushers)
-                        None
-                    ),
+                    strdata.pushers.string(),
                     strdata.utils.apply(
                         len,
                         strdata.checks.range(4, 16)

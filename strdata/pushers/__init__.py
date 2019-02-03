@@ -1,7 +1,7 @@
 import stroke
 import functools
 
-from . import abstract
+from . import simple
 
 
 __all__ = ()
@@ -35,9 +35,9 @@ def safe(function):
 def string():
 
     @safe
-    def execute(*args):
+    def execute(state, *args):
 
-        value = abstract.string(*args)
+        value = simple.string(*args)
 
         return value
 
@@ -50,9 +50,9 @@ def integer(code = 'integer'):
     error = functools.partial(Error, code)
 
     @safe
-    def execute(*args):
+    def execute(state, *args):
 
-        value = abstract.integer(error, *args)
+        value = simple.integer(error, *args)
 
         return value
 
@@ -65,9 +65,9 @@ def decimal(code = 'decimal', point = 3):
     error = functools.partial(Error, code)
 
     @safe
-    def execute(*args):
+    def execute(state, *args):
 
-        value = abstract.decimal(error, *args)
+        value = simple.decimal(error, *args)
 
         if not point is None:
 
@@ -98,9 +98,9 @@ def boolean(options = (
     error = functools.partial(Error, code)
 
     @safe
-    def execute(*args):
+    def execute(state, *args):
 
-        value = abstract.boolean(options, error, *args)
+        value = simple.boolean(options, error, *args)
 
         return value
 
@@ -122,7 +122,7 @@ def array(sub, split = _split):
     @safe
     def execute(*args):
 
-        value = abstract.array(split, sub, *args)
+        value = simple.array(split, sub, *args)
 
         return value
 

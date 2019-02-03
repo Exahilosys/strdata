@@ -4,14 +4,14 @@ import math
 __all__ = ()
 
 
-def string(state, value):
+def string(value):
 
     final = value
 
     return final
 
 
-def integer(error, state, value):
+def integer(error, value):
 
     try:
 
@@ -24,7 +24,7 @@ def integer(error, state, value):
     return final
 
 
-def decimal(error, state, value):
+def decimal(error, value):
 
     try:
 
@@ -41,7 +41,7 @@ def decimal(error, state, value):
     return final
 
 
-def boolean(options, error, state, value):
+def boolean(options, error, value):
 
     value = value.lower()
 
