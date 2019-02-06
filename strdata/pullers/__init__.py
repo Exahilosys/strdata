@@ -6,23 +6,32 @@ from . import simple
 __all__ = ()
 
 
-def safe(function):
+def check_any(args):
 
-    def wrapper(*args, default = '-'):
+    return args[0] is None
 
-        if args[0] is None:
 
-            return default
+def safe(check = check_any):
 
-        return function(*args)
+    def decorator(function):
 
-    return wrapper
+        def wrapper(*args, default = '-'):
+
+            if check(args):
+
+                return default
+
+            return function(*args)
+
+        return wrapper
+
+    return decorator
 
 
 @functools.lru_cache(maxsize = None)
 def string():
 
-    @safe
+    @safe()
     def execute(*args):
 
         return simple.string(*args)
@@ -33,7 +42,7 @@ def string():
 @functools.lru_cache(maxsize = None)
 def integer():
 
-    @safe
+    @safe()
     def execute(*args):
 
         return simple.integer(*args)
@@ -44,7 +53,7 @@ def integer():
 @functools.lru_cache(maxsize = None)
 def decimal(point = 3):
 
-    @safe
+    @safe()
     def execute(*args):
 
         return simple.decimal(point, *args)
@@ -55,7 +64,7 @@ def decimal(point = 3):
 @functools.lru_cache(maxsize = None)
 def boolean(options = ('inactive', 'active')):
 
-    @safe
+    @safe()
     def execute(*args):
 
         return simple.boolean(options, *args)
@@ -63,10 +72,15 @@ def boolean(options = ('inactive', 'active')):
     return execute
 
 
+def check_array(args):
+
+    return not args[0]
+
+
 @functools.lru_cache(maxsize = None)
 def array(sub, join = ', '.join):
 
-    @safe
+    @safe(check_array)
     def execute(*args):
 
         return simple.array(join, sub, *args)

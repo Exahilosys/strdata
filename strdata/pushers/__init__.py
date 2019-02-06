@@ -18,23 +18,32 @@ class Error(Exception):
         self.info = info
 
 
-def safe(function):
+def check_any(args):
 
-    def wrapper(*args, default = None):
+    return not args[1]
 
-        if not args[1]:
 
-            return default
+def safe(check = check_any):
 
-        return function(*args)
+    def decorator(function):
 
-    return wrapper
+        def wrapper(*args, default = None):
+
+            if check(args):
+
+                return default
+
+            return function(*args)
+
+        return wrapper
+
+    return decorator
 
 
 @functools.lru_cache(maxsize = None)
 def string():
 
-    @safe
+    @safe()
     def execute(state, *args):
 
         value = simple.string(*args)
@@ -49,7 +58,7 @@ def integer(code = 'integer'):
 
     error = functools.partial(Error, code)
 
-    @safe
+    @safe()
     def execute(state, *args):
 
         value = simple.integer(error, *args)
@@ -64,7 +73,7 @@ def decimal(code = 'decimal', point = 3):
 
     error = functools.partial(Error, code)
 
-    @safe
+    @safe()
     def execute(state, *args):
 
         value = simple.decimal(error, *args)
@@ -97,7 +106,7 @@ def boolean(options = (
 
     error = functools.partial(Error, code)
 
-    @safe
+    @safe()
     def execute(state, *args):
 
         value = simple.boolean(options, error, *args)
@@ -119,7 +128,7 @@ def _split(value, add = '-add', pop = '-pop'):
 @functools.lru_cache(maxsize = None)
 def array(sub, split = _split):
 
-    @safe
+    @safe()
     def execute(*args):
 
         value = simple.array(split, sub, *args)
