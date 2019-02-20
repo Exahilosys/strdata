@@ -17,7 +17,6 @@ class Error(Exception):
         self.info = info
 
 
-@functools.lru_cache(maxsize = None)
 def range(lower, upper, code = 'range', left = True, right = True):
 
     error = functools.partial(Error, code)

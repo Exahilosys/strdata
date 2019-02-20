@@ -7,8 +7,10 @@ reject = (None,)
 
 skip = reject.__contains__
 
+types = ('feline', 'canis')
+
 pushers = {
-    # what the asset is going to be looked up with
+    # what the asset is going to be looked up by
     'name': (
         # what the unparsed value will be requested as
         'name',
@@ -45,7 +47,19 @@ pushers = {
         strdata.utils.apply(
             strdata.pushers.array(
                 strdata.utils.apply(
-                    strdata.pushers.string(),
+                    functools.partial(
+                        strdata.pushers.string(),
+                        # we have to do this because
+                        # pushers require to know the
+                        # previous state of the value
+                        # they parse (even if sometimes
+                        # it's not really used for anything);
+                        # since we can't schemanticaly derive
+                        # this value from an array, we have
+                        # to explicitely pass it; (pushers.string
+                        # doesn't use the state like most pushers)
+                        None
+                    ),
                     strdata.utils.apply(
                         len,
                         strdata.checks.range(4, 16)
@@ -63,16 +77,18 @@ pushers = {
         'type',
         strdata.utils.apply(
             strdata.pushers.string(),
+            strdata.checks.include(types)
+        )
+    ),
+    'status': (
+        'status',
+        'status',
+        strdata.utils.apply(
+            strdata.pushers.string(),
             strdata.utils.apply(
                 len,
-                strdata.checks.range(1, 12)
-            ),
-            # in the case where something like
-            # `name -set` happens, the default value
-            # returned will be None (can be changed)
-            # which doesn't require validation, so we
-            # let utils.apply know to skip that part
-            skip = skip
+                strdata.checks.range(4, 16)
+            )
         )
     )
 }
@@ -88,7 +104,7 @@ pullers = {
     'gold coins': (
         'gold_coins',
         'gold coins',
-        strdata.pullers.decimal(precision = 2)
+        strdata.pullers.decimal(point = 2)
     ),
     'type': (
         'type',
@@ -104,32 +120,36 @@ pullers = {
         'likes',
         'interests',
         strdata.pullers.array(strdata.pullers.string())
+    ),
+    'status': (
+        'status',
+        'status',
+        strdata.pullers.string()
     )
 }
 
 data = {
     'name': 'kitty',
-    'type': 'feline',
+    'type': 'canis',
     'alive': True,
     'gold_coins': 4.234381,
-    'likes': ['pats', 'meows']
+    'likes': ['pats', 'meows'],
+    'status': 'angry'
 }
 
 test = (
-    'name -set toots '
+    'name '
     '-and alive -set f '
-    '-and type -set '
+    '-and type -set feline '
     '-and interests -set -add purrs -pop meows -add yarn '
     '-and gold coins -set 5.234 '
+    '-and status -set '
 )
 
 print(test)
 
-# list of str required
-values = test.split(' ')
-
 # single is for display; pairs is for update
-single, pairs = strdata.parsers.pair(values)
+single, pairs = strdata.parsers.pair(test)
 
 extras, junk = zip(*pairs)
 

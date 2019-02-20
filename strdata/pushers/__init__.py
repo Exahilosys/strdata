@@ -118,9 +118,9 @@ def boolean(options = (
 
 def _split(value, add = '-add', pop = '-pop'):
 
-    keys = (add, pop)
+    limits = ((add, 0), (pop, 0))
 
-    junk, *stores = stroke.parse.group(value, *keys)
+    junk, *stores = stroke.parse.group(value, *limits)
 
     return map(stroke.parse.clean, stores)
 

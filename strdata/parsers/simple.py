@@ -1,4 +1,5 @@
 import stroke
+import functools
 
 
 __all__ = ()
@@ -6,15 +7,17 @@ __all__ = ()
 
 def pair(add, set, argument):
 
-    bundles = stroke.parse.split(argument, add)
+    bundles = stroke.parse.split(argument, add, 0)
 
-    bundles = stroke.parse.clean(bundles)
+    bundles = stroke.parse.clean(bundles, strip = str.strip)
+
+    strip = functools.partial(stroke.parse.strip, ghost = 0)
 
     for bundle in bundles:
 
-        assets = stroke.parse.split(bundle, set)
+        assets = stroke.parse.split(bundle, set, 1)
 
-        assets = stroke.parse.clean(assets, empty = False)
+        assets = stroke.parse.clean(assets, strip = strip, empty = False)
 
         key = next(assets)
 

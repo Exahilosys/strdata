@@ -1,4 +1,5 @@
 import math
+import stroke
 
 
 __all__ = ()
@@ -6,7 +7,7 @@ __all__ = ()
 
 def string(value):
 
-    final = value
+    final = stroke.parse.strip(value)
 
     return final
 
